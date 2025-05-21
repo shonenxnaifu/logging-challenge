@@ -1,3 +1,7 @@
 ---query percentile 95 api grafana
 histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{}[5m])) by (le, handler))
 histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{}[5m])) by (le, handler, status_code))
+
+---query percentile 95 api grafana with filter
+histogram_quantile(0.95, sum(rate(grafana_http_request_duration_seconds_bucket{handler=~"$handler"}[5m])) by (le, handler, status_code))
+
